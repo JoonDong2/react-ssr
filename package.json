@@ -4,16 +4,17 @@
   "description": ".",
   "main": "index.js",
   "scripts": {
-    "build:client": "esbuild src/index.js --bundle --outfile=dist/bundle.js --loader:.js=jsx",
+    "build:client": "esbuild src/index.tsx --bundle --outfile=build/client/index.js --loader:.js=jsx",
     "build:server": "esbuild server/index.tsx --bundle --outfile=build/server/index.js --platform=node",
-    "build": "npm run build:client && npm run build:server",
     "start": "node ./build/server/index.js",
-    "dev": "nodemon --watch 'server/**/*' --ext js,jsx,ts,tsx --exec 'npm run build:server && npm run start'"
+    "dev": "nodemon --watch 'server/**/*' --watch 'src/**/*' --ext js,jsx,ts,tsx,html --exec 'npm run build:server && npm run build:client && npm run start'"
   },
   "author": "joondong2",
   "license": "MIT",
   "dependencies": {
     "@types/express": "^5.0.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "esbuild": "^0.24.0",
     "express": "^4.2",
     "react": "^18.3.1",
