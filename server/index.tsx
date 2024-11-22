@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
               Suspender.values()
             );
             res.write(
-              `<script>window.__SUSPENDER_CACHE__=${stringifiedSuspenderCache}</script>`
+              `\n<script>window.__SUSPENDER_CACHE__=${stringifiedSuspenderCache}</script>`
             );
             res.end();
             callback();
