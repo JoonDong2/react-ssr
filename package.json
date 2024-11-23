@@ -7,7 +7,7 @@
     "build:client": "esbuild client/index.tsx --bundle --outfile=build/client/index.js --loader:.js=jsx",
     "build:server": "esbuild server/index.tsx --bundle --outfile=build/server/index.js --platform=node",
     "start": "node ./build/server/index.js",
-    "dev": "nodemon --watch 'server/**/*' --watch 'src/**/*' --ext js,jsx,ts,tsx,html --exec 'npm run build:server && npm run build:client && npm run start'"
+    "dev": "nodemon --watch 'server/**/*' --watch 'client/**/*' --watch 'src/**/*'  --ext js,jsx,ts,tsx,html --exec 'npm run build:server && npm run build:client && npm run start'"
   },
   "author": "joondong2",
   "license": "MIT",
