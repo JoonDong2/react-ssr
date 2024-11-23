@@ -7,12 +7,19 @@ export interface DehydratedPromise<T> {
 }
 
 export class Suspender<T> {
+  static prevRaw: [string, DehydratedPromise<unknown>][];
   private static cache = new Map<
     string | undefined | null,
     Suspender<unknown>
   >();
 
   static get(key?: string | null, delay = 3000) {
+    const suspenderCache = (globalThis.window as any)?.__SUSPENDER_CACHE__;
+    if (suspenderCache && Suspender.prevRaw !== suspenderCache) {
+      Suspender.init(suspenderCache);
+      Suspender.prevRaw = suspenderCache;
+    }
+
     let suspender = Suspender.cache.get(key);
     if (!suspender) {
       suspender = new Suspender(
@@ -78,14 +85,3 @@ export class Suspender<T> {
     }
   }
 }
-
-export const SuspenderProvider = ({ children }: PropsWithChildren) => {
-  const prev = useRef<[string, DehydratedPromise<unknown>]>();
-  const suspenderCache = (globalThis.window as any)?.__SUSPENDER_CACHE__;
-  if (suspenderCache && prev.current !== suspenderCache) {
-    Suspender.init(suspenderCache);
-    prev.current = suspenderCache;
-  }
-
-  return children;
-};
