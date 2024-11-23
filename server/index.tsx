@@ -6,6 +6,7 @@ import { renderToPipeableStream } from "react-dom/server";
 import App from "../src/App";
 import { Suspender } from "../src/suspender";
 import { Writable } from "stream";
+import AppWrapper from "../src/AppWrapper";
 
 const app = express();
 
@@ -17,9 +18,11 @@ app.use(express.static("build/client"));
 app.get("/", (req, res) => {
   const key = String(req.query.key);
   const { pipe } = renderToPipeableStream(
-    <Suspense fallback="loading...">
-      <App queryKey={key} />
-    </Suspense>,
+    <AppWrapper>
+      <Suspense fallback="loading...">
+        <App queryKey={key} />
+      </Suspense>
+    </AppWrapper>,
     {
       bootstrapScripts: ["/index.js"], // add <script src="./index.js"></script>
       onShellReady() {
