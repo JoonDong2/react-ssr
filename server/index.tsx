@@ -21,7 +21,9 @@ app.get("/", (req, res) => {
       <App queryKey={key} />
     </Suspense>,
     {
+      bootstrapScripts: ["/index.js"], // add <script src="./index.js"></script>
       onShellReady() {
+        res.writeHead(200, { "content-type": "text/html" });
         res.write(header);
         const passThough = new Writable({
           write(chunk, encodong, callback) {
