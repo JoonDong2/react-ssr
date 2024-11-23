@@ -1,9 +1,10 @@
 import React, { Suspense } from "react";
 import { hydrateRoot } from "react-dom/client";
-import App from "./App";
-import { SuspenderProvider } from "./suspender";
+import App from "../src/App";
+import { SuspenderProvider } from "../src/suspender";
 
 const root = document.getElementById("root")!;
+
 hydrateRoot(
   root,
   <SuspenderProvider>
